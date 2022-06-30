@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hello_flutter/SpaceCraft.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,6 +50,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  Spacecraft? spacecraft;
+  String? info;
+  @override
+  void initState() {
+    // TODO: implement initState
+    spacecraft = Spacecraft('嫦娥一号', DateTime(2019, 10, 11));
+    super.initState();
+    var a = spacecraft?.showInfo();
+
+    Spacecraft c = Spacecraft.unlaunched('未来号');
+    var b = c.showInfo();
+    print(widget);
+    info = a;
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -103,6 +118,10 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Text(
                 '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              Text(
+                '$info',
                 style: Theme.of(context).textTheme.headline4,
               ),
             ],
