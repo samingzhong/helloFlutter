@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
           children: [
             Image.asset(
               'images/test.jpeg',
-              height: 400,
-              width: 300,
+              height: 300,
+              // width: 100,
             ),
             MyView(),
             MyViewB(),
@@ -55,7 +55,13 @@ class MyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(32),
+      // color: Colors.pinkAccent,
+      margin: const EdgeInsets.only(
+        top: 10,
+        left: 32,
+        bottom: 20,
+        right: 10,
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -91,18 +97,59 @@ class MyView extends StatelessWidget {
             width: 10,
           ),
           /*3*/
-          Row(
-            children: [
-              Icon(
-                Icons.star,
-                color: Colors.red[500],
-              ),
-              const Text('41'),
-            ],
-          )
+          FavorateWidget(),
         ],
       ),
     );
+  }
+}
+
+class FavorateWidget extends StatefulWidget {
+  const FavorateWidget({Key? key}) : super(key: key);
+
+  @override
+  State<FavorateWidget> createState() => _FavorateWidgetState();
+}
+
+class _FavorateWidgetState extends State<FavorateWidget> {
+  bool _isFavorate = true;
+  int _favorateCount = 41;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: [
+          Container(
+            child: IconButton(
+              alignment: Alignment.centerRight,
+              icon: _isFavorate ? Icon(Icons.star) : Icon(Icons.star_border),
+              color: Colors.red,
+              onPressed: _favorateBtnDidPress,
+            ),
+          ),
+          SizedBox(
+            width: 40,
+            child: Container(
+              color: Colors.red,
+              child: Text('$_favorateCount'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _favorateBtnDidPress() {
+    setState(() {
+      if (_isFavorate) {
+        _isFavorate = false;
+        _favorateCount -= 1;
+      } else {
+        _isFavorate = true;
+        _favorateCount += 1;
+      }
+    });
   }
 }
 
